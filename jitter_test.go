@@ -6,12 +6,11 @@ import (
 )
 
 func TestJitter(t *testing.T) {
-	j := &Jitter{time.Second, 0.2, grand}
+	j := &Jitter{time.Second, grand}
 	for i := 0; i != 10; i++ {
 		t.Run("", func(t *testing.T) {
-			want := float64(j.Amplitude)
-			wantMin := time.Duration(want * (1 - j.Randomized))
-			wantMax := time.Duration(want * (1 + j.Randomized))
+			wantMin := -j.Jitter
+			wantMax := j.Jitter
 			for i := 0; i != 10; i++ {
 				if got := j.BackOff(uint(i)); got < wantMin || got > wantMax {
 					t.Errorf("DefaultExponentialStrategy.BackOff() = %v, want between %v, %v", got, wantMin, wantMax)

@@ -37,9 +37,8 @@ var DefaultConstant Strategy = &Superposition{
 }
 
 var defaultJitter Strategy = &Jitter{
-	Amplitude:  1 * time.Second,
-	Randomized: 0.2,
-	Rand:       grand,
+	Jitter: 1 * time.Second,
+	Rand:   grand,
 }
 
 var grand = rand.New(rand.NewSource(time.Now().UnixNano()))
